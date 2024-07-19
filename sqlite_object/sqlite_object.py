@@ -7,7 +7,7 @@ class SQLiteObject:
     def __init__(self, db_path):
         self.connection = self.get_connection(db_path)
         self.cursor = None
-        self.auto_commit = False
+        self.auto_commit = True
         self.table = None
 
     def get_connection(self, db_path) -> sqlite3.Connection:

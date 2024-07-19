@@ -10,7 +10,7 @@ The main usage is probably if you don't use a ORM, but query the database direct
 
 Or using a tag (latest):
 
-    pip install git+https://github.com/diversen/python-sqlite-object@v0.0.1
+    pip install git+https://github.com/diversen/python-sqlite-object@v0.0.2
 
 
 ## Usage

@@ -26,7 +26,7 @@ sqlite_object.execute(create_table_sql)
 sqlite_object.set_table("tests")
 
 # Insert using a dict of values
-sqlite_object.insert({"title": "test"})
+sqlite_object.insert({"title": "test", "description": "test description"})
 print(sqlite_object.rows_affected(), "rows affected")
 print(sqlite_object.insert_id(), "last insert id")
 
@@ -75,18 +75,23 @@ sqlite_object.replace(values={"title": "new test"}, where={"title": "test"})
 # Make a custom SQL query
 query = SQLQuery()
 query.select("tests")
-query.where("title = ?")
-query.order_by([["title", "DESC"], ["description", "ASC"]])
+query.where("title = ? AND description = ?")
+query.order_by([("title", "DESC"), ("description", "ASC")])
 query.limit([0, 2])
 sql = query.get_query()
 print("query", sql)
 # -> SELECT * FROM `tests` WHERE title = ? ORDER BY `title` DESC, `description` ASC LIMIT 0, 2
 
 # Fetch all from a custom query
-sqlite_object.fetchall_query(sql, placeholder_values=("test",))
-
-# Fetch one from a custom query
-sqlite_object.fetchone_query(sql, placeholder_values=("test",))
+rows = sqlite_object.fetchall_query(
+    sql,
+    placeholder_values=(
+        "new test",
+        "test description",
+    ),
+)
+for row in rows:
+    print(dict(row), "fetchall_query")
 
 # Delete using a dict of where clause
 sqlite_object.delete_simple(where={"title": "new test"})

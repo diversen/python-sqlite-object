@@ -24,7 +24,6 @@ The following SQL creates the database and the test table:
 To run the tests:
 
     python -m unittest discover -s tests
-    
 
 ## License
 
